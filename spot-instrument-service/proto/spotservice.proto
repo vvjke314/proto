@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package proto;
 
-option go_package = "github.com/vvjke314/grpc/proto/spot-instrument-service/gen";
+option go_package = "github.com/vvjke314/proto/spot-instrument-service/gen";
 
 enum UserRole {
     USER_ROLE_GUEST = 0;

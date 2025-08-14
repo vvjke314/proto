@@ -1,4 +1,4 @@
-module github.com/vvjke314/grpc/proto
+module github.com/vvjke314/proto
 
 go 1.24.2
 
