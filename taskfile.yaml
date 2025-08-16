@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  gen-order:
+    desc: "Генерирует код описанный в ./proto/*.proto и добавляет его в ./gen"
+    cmds:
+      - protoc --go_out=. --go-grpc_out=. --go_opt=paths=import --go-grpc_opt=paths=import ./order-service/proto/*.proto
+      - git add .
+      - git commit

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./order-service/gen";
+
+enum OrderStatus {
+    ORDER_STATUS_CREATE = 0;
+    ORDER_STATUS_CLOSED = 1;
+}
+
+message GetOrderStatusRequest {
+    string order_id = 1;
+    string user_id = 2;
+}
+
+message GetOrderStatusResponse {
+    OrderStatus order_status = 1;
+}
+
+message CreateOrderRequest {
+    string user_id = 1;
+    string market_id = 2;
+    string order_type = 3;
+    int64 price = 4;
+    int32 quantity = 5;
+}
+
+message CreateOrderResponse {
+    string order_id = 1;
+    OrderStatus order_status = 2;
+}
+
+service OrderService {
+    rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+    rpc GetOrderStatus (GetOrderStatusRequest) returns (GetOrderStatusResponse);
+}
