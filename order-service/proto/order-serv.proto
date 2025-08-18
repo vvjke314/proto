@@ -9,6 +9,14 @@ enum OrderStatus {
     ORDER_STATUS_CLOSED = 1;
 }
 
+enum UserRole {
+    USER_ROLE_GUEST = 0;
+    USER_ROLE_EMPLOYEE = 1;
+    USER_ROLE_MANAGER = 2;
+    USER_ROLE_ADMIN = 3;
+};
+
+
 message GetOrderStatusRequest {
     string order_id = 1;
     string user_id = 2;
@@ -24,6 +32,7 @@ message CreateOrderRequest {
     string order_type = 3;
     int64 price = 4;
     int32 quantity = 5;
+    repeated UserRole user_roles = 6;
 }
 
 message CreateOrderResponse {

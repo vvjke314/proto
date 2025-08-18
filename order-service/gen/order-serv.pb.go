@@ -67,6 +67,58 @@ func (OrderStatus) EnumDescriptor() ([]byte, []int) {
 	return file_order_service_proto_order_serv_proto_rawDescGZIP(), []int{0}
 }
 
+type UserRole int32
+
+const (
+	UserRole_USER_ROLE_GUEST    UserRole = 0
+	UserRole_USER_ROLE_EMPLOYEE UserRole = 1
+	UserRole_USER_ROLE_MANAGER  UserRole = 2
+	UserRole_USER_ROLE_ADMIN    UserRole = 3
+)
+
+// Enum value maps for UserRole.
+var (
+	UserRole_name = map[int32]string{
+		0: "USER_ROLE_GUEST",
+		1: "USER_ROLE_EMPLOYEE",
+		2: "USER_ROLE_MANAGER",
+		3: "USER_ROLE_ADMIN",
+	}
+	UserRole_value = map[string]int32{
+		"USER_ROLE_GUEST":    0,
+		"USER_ROLE_EMPLOYEE": 1,
+		"USER_ROLE_MANAGER":  2,
+		"USER_ROLE_ADMIN":    3,
+	}
+)
+
+func (x UserRole) Enum() *UserRole {
+	p := new(UserRole)
+	*p = x
+	return p
+}
+
+func (x UserRole) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (UserRole) Descriptor() protoreflect.EnumDescriptor {
+	return file_order_service_proto_order_serv_proto_enumTypes[1].Descriptor()
+}
+
+func (UserRole) Type() protoreflect.EnumType {
+	return &file_order_service_proto_order_serv_proto_enumTypes[1]
+}
+
+func (x UserRole) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use UserRole.Descriptor instead.
+func (UserRole) EnumDescriptor() ([]byte, []int) {
+	return file_order_service_proto_order_serv_proto_rawDescGZIP(), []int{1}
+}
+
 type GetOrderStatusRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OrderId       string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
@@ -170,6 +222,7 @@ type CreateOrderRequest struct {
 	OrderType     string                 `protobuf:"bytes,3,opt,name=order_type,json=orderType,proto3" json:"order_type,omitempty"`
 	Price         int64                  `protobuf:"varint,4,opt,name=price,proto3" json:"price,omitempty"`
 	Quantity      int32                  `protobuf:"varint,5,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	UserRoles     []UserRole             `protobuf:"varint,6,rep,packed,name=user_roles,json=userRoles,proto3,enum=proto.UserRole" json:"user_roles,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -239,6 +292,13 @@ func (x *CreateOrderRequest) GetQuantity() int32 {
 	return 0
 }
 
+func (x *CreateOrderRequest) GetUserRoles() []UserRole {
+	if x != nil {
+		return x.UserRoles
+	}
+	return nil
+}
+
 type CreateOrderResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OrderId       string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
@@ -300,20 +360,27 @@ const file_order_service_proto_order_serv_proto_rawDesc = "" +
 	"\border_id\x18\x01 \x01(\tR\aorderId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\"O\n" +
 	"\x16GetOrderStatusResponse\x125\n" +
-	"\forder_status\x18\x01 \x01(\x0e2\x12.proto.OrderStatusR\vorderStatus\"\x9b\x01\n" +
+	"\forder_status\x18\x01 \x01(\x0e2\x12.proto.OrderStatusR\vorderStatus\"\xcb\x01\n" +
 	"\x12CreateOrderRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1b\n" +
 	"\tmarket_id\x18\x02 \x01(\tR\bmarketId\x12\x1d\n" +
 	"\n" +
 	"order_type\x18\x03 \x01(\tR\torderType\x12\x14\n" +
 	"\x05price\x18\x04 \x01(\x03R\x05price\x12\x1a\n" +
-	"\bquantity\x18\x05 \x01(\x05R\bquantity\"g\n" +
+	"\bquantity\x18\x05 \x01(\x05R\bquantity\x12.\n" +
+	"\n" +
+	"user_roles\x18\x06 \x03(\x0e2\x0f.proto.UserRoleR\tuserRoles\"g\n" +
 	"\x13CreateOrderResponse\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\tR\aorderId\x125\n" +
 	"\forder_status\x18\x02 \x01(\x0e2\x12.proto.OrderStatusR\vorderStatus*?\n" +
 	"\vOrderStatus\x12\x17\n" +
 	"\x13ORDER_STATUS_CREATE\x10\x00\x12\x17\n" +
-	"\x13ORDER_STATUS_CLOSED\x10\x012\xa3\x01\n" +
+	"\x13ORDER_STATUS_CLOSED\x10\x01*c\n" +
+	"\bUserRole\x12\x13\n" +
+	"\x0fUSER_ROLE_GUEST\x10\x00\x12\x16\n" +
+	"\x12USER_ROLE_EMPLOYEE\x10\x01\x12\x15\n" +
+	"\x11USER_ROLE_MANAGER\x10\x02\x12\x13\n" +
+	"\x0fUSER_ROLE_ADMIN\x10\x032\xa3\x01\n" +
 	"\fOrderService\x12D\n" +
 	"\vCreateOrder\x12\x19.proto.CreateOrderRequest\x1a\x1a.proto.CreateOrderResponse\x12M\n" +
 	"\x0eGetOrderStatus\x12\x1c.proto.GetOrderStatusRequest\x1a\x1d.proto.GetOrderStatusResponseB\x15Z\x13./order-service/genb\x06proto3"
@@ -330,27 +397,29 @@ func file_order_service_proto_order_serv_proto_rawDescGZIP() []byte {
 	return file_order_service_proto_order_serv_proto_rawDescData
 }
 
-var file_order_service_proto_order_serv_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_order_service_proto_order_serv_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_order_service_proto_order_serv_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_order_service_proto_order_serv_proto_goTypes = []any{
 	(OrderStatus)(0),               // 0: proto.OrderStatus
-	(*GetOrderStatusRequest)(nil),  // 1: proto.GetOrderStatusRequest
-	(*GetOrderStatusResponse)(nil), // 2: proto.GetOrderStatusResponse
-	(*CreateOrderRequest)(nil),     // 3: proto.CreateOrderRequest
-	(*CreateOrderResponse)(nil),    // 4: proto.CreateOrderResponse
+	(UserRole)(0),                  // 1: proto.UserRole
+	(*GetOrderStatusRequest)(nil),  // 2: proto.GetOrderStatusRequest
+	(*GetOrderStatusResponse)(nil), // 3: proto.GetOrderStatusResponse
+	(*CreateOrderRequest)(nil),     // 4: proto.CreateOrderRequest
+	(*CreateOrderResponse)(nil),    // 5: proto.CreateOrderResponse
 }
 var file_order_service_proto_order_serv_proto_depIdxs = []int32{
 	0, // 0: proto.GetOrderStatusResponse.order_status:type_name -> proto.OrderStatus
-	0, // 1: proto.CreateOrderResponse.order_status:type_name -> proto.OrderStatus
-	3, // 2: proto.OrderService.CreateOrder:input_type -> proto.CreateOrderRequest
-	1, // 3: proto.OrderService.GetOrderStatus:input_type -> proto.GetOrderStatusRequest
-	4, // 4: proto.OrderService.CreateOrder:output_type -> proto.CreateOrderResponse
-	2, // 5: proto.OrderService.GetOrderStatus:output_type -> proto.GetOrderStatusResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // 1: proto.CreateOrderRequest.user_roles:type_name -> proto.UserRole
+	0, // 2: proto.CreateOrderResponse.order_status:type_name -> proto.OrderStatus
+	4, // 3: proto.OrderService.CreateOrder:input_type -> proto.CreateOrderRequest
+	2, // 4: proto.OrderService.GetOrderStatus:input_type -> proto.GetOrderStatusRequest
+	5, // 5: proto.OrderService.CreateOrder:output_type -> proto.CreateOrderResponse
+	3, // 6: proto.OrderService.GetOrderStatus:output_type -> proto.GetOrderStatusResponse
+	5, // [5:7] is the sub-list for method output_type
+	3, // [3:5] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_order_service_proto_order_serv_proto_init() }
@@ -363,7 +432,7 @@ func file_order_service_proto_order_serv_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_order_service_proto_order_serv_proto_rawDesc), len(file_order_service_proto_order_serv_proto_rawDesc)),
-			NumEnums:      1,
+			NumEnums:      2,
 			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
