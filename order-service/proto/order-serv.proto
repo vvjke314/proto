@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto;
+package order_service.v1;
 
 option go_package = "./order-service/gen";
 

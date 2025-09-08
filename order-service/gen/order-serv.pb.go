@@ -173,7 +173,7 @@ func (x *GetOrderStatusRequest) GetUserId() string {
 
 type GetOrderStatusResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	OrderStatus   OrderStatus            `protobuf:"varint,1,opt,name=order_status,json=orderStatus,proto3,enum=proto.OrderStatus" json:"order_status,omitempty"`
+	OrderStatus   OrderStatus            `protobuf:"varint,1,opt,name=order_status,json=orderStatus,proto3,enum=order_service.v1.OrderStatus" json:"order_status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -222,7 +222,7 @@ type CreateOrderRequest struct {
 	OrderType     string                 `protobuf:"bytes,3,opt,name=order_type,json=orderType,proto3" json:"order_type,omitempty"`
 	Price         int64                  `protobuf:"varint,4,opt,name=price,proto3" json:"price,omitempty"`
 	Quantity      int32                  `protobuf:"varint,5,opt,name=quantity,proto3" json:"quantity,omitempty"`
-	UserRoles     []UserRole             `protobuf:"varint,6,rep,packed,name=user_roles,json=userRoles,proto3,enum=proto.UserRole" json:"user_roles,omitempty"`
+	UserRoles     []UserRole             `protobuf:"varint,6,rep,packed,name=user_roles,json=userRoles,proto3,enum=order_service.v1.UserRole" json:"user_roles,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -302,7 +302,7 @@ func (x *CreateOrderRequest) GetUserRoles() []UserRole {
 type CreateOrderResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OrderId       string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	OrderStatus   OrderStatus            `protobuf:"varint,2,opt,name=order_status,json=orderStatus,proto3,enum=proto.OrderStatus" json:"order_status,omitempty"`
+	OrderStatus   OrderStatus            `protobuf:"varint,2,opt,name=order_status,json=orderStatus,proto3,enum=order_service.v1.OrderStatus" json:"order_status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -355,24 +355,24 @@ var File_order_service_proto_order_serv_proto protoreflect.FileDescriptor
 
 const file_order_service_proto_order_serv_proto_rawDesc = "" +
 	"\n" +
-	"$order-service/proto/order-serv.proto\x12\x05proto\"K\n" +
+	"$order-service/proto/order-serv.proto\x12\x10order_service.v1\"K\n" +
 	"\x15GetOrderStatusRequest\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\tR\aorderId\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\"O\n" +
-	"\x16GetOrderStatusResponse\x125\n" +
-	"\forder_status\x18\x01 \x01(\x0e2\x12.proto.OrderStatusR\vorderStatus\"\xcb\x01\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\"Z\n" +
+	"\x16GetOrderStatusResponse\x12@\n" +
+	"\forder_status\x18\x01 \x01(\x0e2\x1d.order_service.v1.OrderStatusR\vorderStatus\"\xd6\x01\n" +
 	"\x12CreateOrderRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1b\n" +
 	"\tmarket_id\x18\x02 \x01(\tR\bmarketId\x12\x1d\n" +
 	"\n" +
 	"order_type\x18\x03 \x01(\tR\torderType\x12\x14\n" +
 	"\x05price\x18\x04 \x01(\x03R\x05price\x12\x1a\n" +
-	"\bquantity\x18\x05 \x01(\x05R\bquantity\x12.\n" +
+	"\bquantity\x18\x05 \x01(\x05R\bquantity\x129\n" +
 	"\n" +
-	"user_roles\x18\x06 \x03(\x0e2\x0f.proto.UserRoleR\tuserRoles\"g\n" +
+	"user_roles\x18\x06 \x03(\x0e2\x1a.order_service.v1.UserRoleR\tuserRoles\"r\n" +
 	"\x13CreateOrderResponse\x12\x19\n" +
-	"\border_id\x18\x01 \x01(\tR\aorderId\x125\n" +
-	"\forder_status\x18\x02 \x01(\x0e2\x12.proto.OrderStatusR\vorderStatus*?\n" +
+	"\border_id\x18\x01 \x01(\tR\aorderId\x12@\n" +
+	"\forder_status\x18\x02 \x01(\x0e2\x1d.order_service.v1.OrderStatusR\vorderStatus*?\n" +
 	"\vOrderStatus\x12\x17\n" +
 	"\x13ORDER_STATUS_CREATE\x10\x00\x12\x17\n" +
 	"\x13ORDER_STATUS_CLOSED\x10\x01*c\n" +
@@ -380,10 +380,10 @@ const file_order_service_proto_order_serv_proto_rawDesc = "" +
 	"\x0fUSER_ROLE_GUEST\x10\x00\x12\x16\n" +
 	"\x12USER_ROLE_EMPLOYEE\x10\x01\x12\x15\n" +
 	"\x11USER_ROLE_MANAGER\x10\x02\x12\x13\n" +
-	"\x0fUSER_ROLE_ADMIN\x10\x032\xa3\x01\n" +
-	"\fOrderService\x12D\n" +
-	"\vCreateOrder\x12\x19.proto.CreateOrderRequest\x1a\x1a.proto.CreateOrderResponse\x12M\n" +
-	"\x0eGetOrderStatus\x12\x1c.proto.GetOrderStatusRequest\x1a\x1d.proto.GetOrderStatusResponseB\x15Z\x13./order-service/genb\x06proto3"
+	"\x0fUSER_ROLE_ADMIN\x10\x032\xcf\x01\n" +
+	"\fOrderService\x12Z\n" +
+	"\vCreateOrder\x12$.order_service.v1.CreateOrderRequest\x1a%.order_service.v1.CreateOrderResponse\x12c\n" +
+	"\x0eGetOrderStatus\x12'.order_service.v1.GetOrderStatusRequest\x1a(.order_service.v1.GetOrderStatusResponseB\x15Z\x13./order-service/genb\x06proto3"
 
 var (
 	file_order_service_proto_order_serv_proto_rawDescOnce sync.Once
@@ -400,21 +400,21 @@ func file_order_service_proto_order_serv_proto_rawDescGZIP() []byte {
 var file_order_service_proto_order_serv_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_order_service_proto_order_serv_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_order_service_proto_order_serv_proto_goTypes = []any{
-	(OrderStatus)(0),               // 0: proto.OrderStatus
-	(UserRole)(0),                  // 1: proto.UserRole
-	(*GetOrderStatusRequest)(nil),  // 2: proto.GetOrderStatusRequest
-	(*GetOrderStatusResponse)(nil), // 3: proto.GetOrderStatusResponse
-	(*CreateOrderRequest)(nil),     // 4: proto.CreateOrderRequest
-	(*CreateOrderResponse)(nil),    // 5: proto.CreateOrderResponse
+	(OrderStatus)(0),               // 0: order_service.v1.OrderStatus
+	(UserRole)(0),                  // 1: order_service.v1.UserRole
+	(*GetOrderStatusRequest)(nil),  // 2: order_service.v1.GetOrderStatusRequest
+	(*GetOrderStatusResponse)(nil), // 3: order_service.v1.GetOrderStatusResponse
+	(*CreateOrderRequest)(nil),     // 4: order_service.v1.CreateOrderRequest
+	(*CreateOrderResponse)(nil),    // 5: order_service.v1.CreateOrderResponse
 }
 var file_order_service_proto_order_serv_proto_depIdxs = []int32{
-	0, // 0: proto.GetOrderStatusResponse.order_status:type_name -> proto.OrderStatus
-	1, // 1: proto.CreateOrderRequest.user_roles:type_name -> proto.UserRole
-	0, // 2: proto.CreateOrderResponse.order_status:type_name -> proto.OrderStatus
-	4, // 3: proto.OrderService.CreateOrder:input_type -> proto.CreateOrderRequest
-	2, // 4: proto.OrderService.GetOrderStatus:input_type -> proto.GetOrderStatusRequest
-	5, // 5: proto.OrderService.CreateOrder:output_type -> proto.CreateOrderResponse
-	3, // 6: proto.OrderService.GetOrderStatus:output_type -> proto.GetOrderStatusResponse
+	0, // 0: order_service.v1.GetOrderStatusResponse.order_status:type_name -> order_service.v1.OrderStatus
+	1, // 1: order_service.v1.CreateOrderRequest.user_roles:type_name -> order_service.v1.UserRole
+	0, // 2: order_service.v1.CreateOrderResponse.order_status:type_name -> order_service.v1.OrderStatus
+	4, // 3: order_service.v1.OrderService.CreateOrder:input_type -> order_service.v1.CreateOrderRequest
+	2, // 4: order_service.v1.OrderService.GetOrderStatus:input_type -> order_service.v1.GetOrderStatusRequest
+	5, // 5: order_service.v1.OrderService.CreateOrder:output_type -> order_service.v1.CreateOrderResponse
+	3, // 6: order_service.v1.OrderService.GetOrderStatus:output_type -> order_service.v1.GetOrderStatusResponse
 	5, // [5:7] is the sub-list for method output_type
 	3, // [3:5] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
